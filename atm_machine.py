@@ -39,19 +39,23 @@ class Account(object):
 
     def withdraw(self, amount):
         """Withdraw some money!"""
-        pass
+        if self.balance >= amount:
+           self.balance -= amount
+        else:
+           print 'Insufficient funds'
 
     def deposit(self, amount):
         """Let's receive some money!"""
-        pass
-    
+        self.balance += amount
+
     def check_balance(self):
         """Let's see how rich we are!"""
         return self.balance
 
     def transfer_money(self, amount, another_account):
         """Transfer money from this account to the other one"""
-        pass
+        self.withdraw(amount)
+        another_account.deposit(amount)
 
 
 def main():
