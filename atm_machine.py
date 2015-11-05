@@ -10,19 +10,53 @@ class ATMMachine(object):
 
     def make_a_withdraw(self, account_number, amount):
         """Withdraw (amount) from (account_number)"""
-        pass
+        registered_account = False
+        for iaccount in self.accounts:
+            if iaccount.account_number == account_number:
+               iaccount.withdraw(amount)
+               registered_account = True
+#               print iaccount.check_balance()
+        if registered_account == False:
+           print 'Check your account number'
 
     def make_a_deposit(self, account_number, amount):
         """Deposit (amount) into (account_number)"""
-        pass
+        registered_account = False
+        for iaccount in self.accounts:
+            if iaccount.account_number == account_number:
+               iaccount.deposit(amount)
+               registered_account = True
+#               print iaccount.check_balance()
+        if registered_account == False:
+           print 'Check your account number'
 
     def print_account_balance(self, account_number):
         """Print the Account Balance from (account_number)"""
-        pass
-    
+        registered_account = False
+        for iaccount in self.accounts:
+            if iaccount.account_number == account_number:
+               iaccount.check_balance()
+               registered_account = True
+               return iaccount.check_balance()
+        if registered_account == False:
+           print 'Check your account number'
+
     def make_a_transfer(self, from_account_number, to_account_number, amount):
         """Transfer (amount) from (from_account_number) to (to_account_number)"""
-        pass
+        registered_account = False
+        registered_another_account = False
+        from_account = None
+        to_account = None
+        for iaccount in self.accounts:
+            if iaccount.account_number == from_account_number:
+               from_account = iaccount
+               registered_account = True
+            if iaccount.account_number == to_account_number:
+               to_account = iaccount
+               registered_another_account = True
+        if (registered_account == False or registered_another_account == False):
+           print 'Check your account number'
+        from_account.transfer_money(amount, to_account)
 
     def create_new_account(self, account_number, clients_name, initial_balance):
         """Create a new account that belongs to (clients_name) and has the (initial_balance)"""
