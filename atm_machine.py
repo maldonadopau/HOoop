@@ -35,9 +35,8 @@ class ATMMachine(object):
         registered_account = False
         for iaccount in self.accounts:
             if iaccount.account_number == account_number:
-               iaccount.check_balance()
-               registered_account = True
                return iaccount.check_balance()
+               registered_account = True
         if registered_account == False:
            print 'Check your account number'
 
@@ -54,9 +53,10 @@ class ATMMachine(object):
             if iaccount.account_number == to_account_number:
                to_account = iaccount
                registered_another_account = True
-        if (registered_account == False or registered_another_account == False):
+        if (registered_account == True and registered_another_account == True):
+           from_account.transfer_money(amount, to_account)
+        else:
            print 'Check your account number'
-        from_account.transfer_money(amount, to_account)
 
     def create_new_account(self, account_number, clients_name, initial_balance):
         """Create a new account that belongs to (clients_name) and has the (initial_balance)"""
@@ -120,19 +120,31 @@ def main():
 
         elif selected_option == 2:
             print("Make a deposit:")
+            account_number = int(input("Number: "))
+            amount = int(input("Amount: "))
+            atm.make_a_deposit(account_number, amount)
 
         elif selected_option == 3:
             print("Withdraw money:")
+            account_number = int(input("Number: "))
+            amount = int(input("Amount: "))
+            atm.make_a_withdraw(account_number, amount)
 
         elif selected_option == 4:
             print("Check your balance:")
+            account_number = int(input("Number: "))
+            print atm.print_account_balance(account_number)
 
         elif selected_option == 5:
             print("Transfer money:")
+            from_account_number = int(input("From account number: "))
+            to_account_number = int(input("To account number: "))
+            amount = int(input("Amount: "))
+            atm.make_a_transfer(from_account_number, to_account_number, amount)
 
         elif selected_option == 0:
             print("Bye Bye!")
-            exit(0)
+            return
         else:
             print("Invalid option!")
         
@@ -141,3 +153,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
